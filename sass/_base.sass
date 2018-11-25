@@ -334,7 +334,8 @@ ul.global-nav
 
 .open-nav, .y-enough
 	#tryKubernetes
-		width: 150px
+		width: auto
+		padding: 0 20px
 		background-color: $blue
 		border-color: $blue
 
@@ -556,6 +557,9 @@ section
 #docs
 	#vendorStrip
 		line-height: 44px
+		max-width: 100%
+		overflow-x: auto
+		-webkit-overflow-scrolling: touch
 
 		ul
 			float: none
@@ -912,6 +916,9 @@ dd
 	ul li
 		list-style: disc
 
+	ol ul li
+		list-style: disc
+
 	ol li
 		list-style: decimal
 
@@ -1011,6 +1018,22 @@ dd
 
 	a.issue
 		margin-left: 0px
+
+.feedback--no
+	margin-left: 1em
+
+.feedback--prompt
+	margin-bottom: 1em
+
+.feedback--response
+	margin-top: 1em
+
+.feedback--button__disabled
+	background-color: #f7f7f7
+	color: graytext
+
+.feedback--response__hidden
+	display: none
 
 .fixed footer
 	position: fixed
@@ -1808,3 +1831,17 @@ $feature-box-div-margin-bottom: 40px
 	cursor: pointer
 	color: #0000CC
 	margin-right: 8px
+
+// GitHub info/edit buttons
+#pre-footer
+	margin-top: 2rem
+
+	.button
+		font-size: 1.1rem
+
+		&:first-of-type
+			margin-right: .75rem
+
+	.lastedit
+		margin-top: 1rem
+		font-size: 1rem

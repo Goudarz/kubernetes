@@ -154,8 +154,8 @@ process guidelines and information about deadlines.
 ### Sign the CLA
 
 Before you can contribute code or documentation to Kubernetes, you **must** read
-the [Contributor guide](/docs/community/guide/) and
-[sign the Contributor License Agreement (CLA)](/docs/community/guide/#sign-the-cla).
+the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) and
+[sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
 Don't worry -- this doesn't take long!
 
 ### Find something to work on
@@ -179,7 +179,7 @@ to base your work on. Use these guidelines to make the decision:
 
 - Use `master` for fixing problems in content that is already published, or
   making improvements to content that already exists.
-- Use a release branch (such as `release-1.12`) to document upcoming features
+  - Use a release branch (such as `dev-{{< release-branch >}}` for the {{< release-branch >}} release) to document upcoming features
   or changes for an upcoming release that is not yet published.
 - Use a feature branch that has been agreed upon by SIG Docs to collaborate on
   big improvements or changes to the existing documentation, including content
@@ -213,7 +213,7 @@ documentation.
     include more detail if appropriate.
 
     {{< note >}}
-**Note**: Do not include references to other Github issues or pull
+Do not include references to other Github issues or pull
 requests in your commit message. You can add those to the pull request
 description later.
 {{< /note >}}
@@ -231,7 +231,7 @@ description later.
     **Create pull request**.
     
     {{< note >}}
-**Note**: If you don't want to create the pull request now, you can do it
+If you don't want to create the pull request now, you can do it
 later, by browsing to the main URL of the Kubernetes website repository or
 your fork's repository. The Github website will prompt you to create the
 pull request if it detects that you pushed a new branch to your fork.
