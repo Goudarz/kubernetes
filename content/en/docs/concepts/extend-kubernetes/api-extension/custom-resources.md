@@ -71,14 +71,14 @@ Imperative APIs are not declarative.
 Signs that your API might not be declarative include:
 
  - The client says "do this", and then gets a synchronous response back when it is done.
- - The client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
+ - The client says "do this", and then gets an operation ID back, and has to check a separate Operation object to determine completion of the request.
  - You talk about Remote Procedure Calls (RPCs).
  - Directly storing large amounts of data (e.g. > a few kB per object, or >1000s of objects).
  - High bandwidth access (10s of requests per second sustained) needed.
  - Store end-user data (such as images, PII, etc) or other large-scale data processed by applications.
  - The natural operations on the objects are not CRUD-y.
  - The API is not easily modeled as objects.
- - You chose to represent pending operations with an operation ID or operation object.
+ - You chose to represent pending operations with an operation ID or an operation object.
 
 ### Should I use a configMap or a custom resource?
 
@@ -108,11 +108,11 @@ Use a custom resource (CRD or Aggregated API) if most of the following apply:
 Kubernetes provides two ways to add custom resources to your cluster:
 
 - CRDs are simple and can be created without any programming.
-- [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) requires programming, but allows more control over API behaviors like how data is stored and conversion between API versions.
+- [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) requires programming, but allows more control over API behaviors like how data is stored and conversion between API versions.
 
 Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility is compromised.
 
-Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
+Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
 
 CRDs allow users to create new types of resources without adding another APIserver. You do not need to understand API Aggregation to use CRDs.
 
@@ -138,7 +138,7 @@ CRD is the successor to the deprecated *ThirdPartyResource* (TPR) API, and is av
 
 Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also handle custom resources in a generic way through [CRDs](#customresourcedefinitions).
 
-The [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) allows you to provide specialized
+The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
 implementations for your custom resources by writing and deploying your own standalone API server.
 The main API server delegates requests to you for the custom resources that you handle,
 making them available to all of its clients.

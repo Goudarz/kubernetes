@@ -461,7 +461,7 @@ public IP address resource needs to be created first, and it should be in the sa
 group of the other automatically created resources of the cluster. For example, `MC_myResourceGroup_myAKSCluster_eastus`. Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the securityGroupName in the cloud provider configuration file. For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see, [Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip) or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
 
 {{< note >}}
-he support of SCTP in the cloud provider's load balancer is up to the cloud provider's
+The support of SCTP in the cloud provider's load balancer is up to the cloud provider's
 load balancer implementation. If SCTP is not supported by the cloud provider's load balancer the
 Service creation request is accepted but the creation of the load balancer fails.
 {{< /note >}}
@@ -758,13 +758,10 @@ for supported instance types.
 
 ### Type ExternalName {#externalname}
 
-{{< note >}}
-ExternalName Services are available only with `kube-dns` version 1.7 and later.
-{{< /note >}}
+Services of type ExternalName map a service to a DNS name, not to a typical selector such as
+`my-service` or `cassandra`. You specify these services with the `spec.externalName` parameter.
 
-Services of type ExternalName map a service to a DNS name (specified using
-the `spec.externalName` parameter) rather than to a typical selector like
-`my-service` or `cassandra`. This Service definition, for example, would map
+This Service definition, for example, maps
 the `my-service` Service in the `prod` namespace to `my.database.example.com`:
 
 ```yaml
@@ -777,8 +774,12 @@ spec:
   type: ExternalName
   externalName: my.database.example.com
 ```
+{{< note >}}
+ExternalName accepts an IPv4 address string, but as a DNS name comprised of digits, not as an IP address. ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
+is intended to specify a canonical DNS name. To hardcode an IP address, consider headless services.
+{{< /note >}}
 
-When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
+When looking up the host `my-service.prod.svc.cluster.local`, the cluster DNS service
 will return a `CNAME` record with the value `my.database.example.com`. Accessing
 `my-service` works in the same way as other Services but with the crucial
 difference that redirection happens at the DNS level rather than via proxying or

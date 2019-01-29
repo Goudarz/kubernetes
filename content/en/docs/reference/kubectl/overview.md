@@ -38,18 +38,18 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
 
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
-   
+
    * To specify resources by type and name:
-   
+
       * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
       Example: `$ kubectl get pod example-pod1 example-pod2`
-        
+
       * To specify multiple resource types individually:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
       Example: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
-        
+
    * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
-   
-      * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
+
+      * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
      Example: `$ kubectl get pod -f ./pod.yaml`
 
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
@@ -76,8 +76,9 @@ Operation       | Syntax    |       Description
 `create`        | `kubectl create -f FILENAME [flags]` | Create one or more resources from a file or stdin.
 `delete`        | `kubectl delete (-f FILENAME \| TYPE [NAME \| /NAME \| -l label \| --all]) [flags]` | Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
 `describe`    | `kubectl describe (-f FILENAME \| TYPE [NAME_PREFIX \| /NAME \| -l label]) [flags]` | Display the detailed state of one or more resources.
+`diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration (**BETA**)
 `edit`        | `kubectl edit (-f FILENAME \| TYPE NAME \| TYPE/NAME) [flags]` | Edit and update the definition of one or more resources on the server by using the default editor.
-`exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod,
+`exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
 `explain`    | `kubectl explain [--include-extended-apis=true] [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
 `expose`        | `kubectl expose (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--port=port] [--protocol=TCP\|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, or pod as a new Kubernetes service.
 `get`        | `kubectl get (-f FILENAME \| TYPE [NAME \| /NAME \| -l label]) [--watch] [--sort-by=FIELD] [[-o \| --output]=OUTPUT_FORMAT] [flags]` | List one or more resources.
@@ -273,7 +274,7 @@ $ kubectl create -f <directory>
 // List all pods in plain-text output format.
 $ kubectl get pods
 
-// List all pods in plain-text output format and includes additional information (such as node name).
+// List all pods in plain-text output format and include additional information (such as node name).
 $ kubectl get pods -o wide
 
 // List the replication controller with the specified name in plain-text output format. Tip: You can shorten and replace the 'replicationcontroller' resource type with the alias 'rc'.
@@ -287,9 +288,6 @@ $ kubectl get ds --include-uninitialized
 
 // List all pods running on node server01
 $ kubectl get pods --field-selector=spec.nodeName=server01
-
-// List all pods in plain-text output format, delegating the details of printing to the server
-$ kubectl get pods --experimental-server-print
 ```
 
 `kubectl describe` - Display detailed state of one or more resources, including the uninitialized ones by default.
